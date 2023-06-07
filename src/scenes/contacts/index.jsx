@@ -4,6 +4,8 @@ import { tokens } from "../../theme";
 import { mockDataContacts } from "../../data/mockData";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
+import axios from 'axios';
+
 
 const Contacts = () => {
   const theme = useTheme();
@@ -57,6 +59,20 @@ const Contacts = () => {
       flex: 0.2,
     }, 
   ];
+
+  const MyComponent = () => {
+    useEffect(() => {
+      axios.get('https://your-backend.herokuapp.com/api/data')
+        .then(response => {
+          // Handle the response data
+          console.log(response.data);
+        })
+        .catch(error => {
+          // Handle any errors
+          console.error(error);
+        });
+    }, []);
+  
 
   return (
     <Box m="20px">
