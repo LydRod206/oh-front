@@ -25,7 +25,7 @@ export default function SendEmailTesting() {
                 .catch((err) => alert(err));
             return;
         }
-        return alert("Fill out those fields or no workie!")
+        return alert("You gotta fill out all the fields")
     }
 
     return (
