@@ -10,46 +10,52 @@ const Contacts = () => {
   const colors = tokens(theme.palette.mode);
 
   const columns = [
-    { field: "id", headerName: "ID", flex: 0.5 },
-    { field: "registrarId", headerName: "Registrar ID" },
+    { 
+      field: "id", 
+      headerName: "ID", 
+      // flex: 0.5 
+    },
+    {
+      field: "date",
+      headerName: "Date",
+      flex: 0.3,
+    },
     {
       field: "name",
       headerName: "Name",
-      flex: 1,
+      flex: 0.3,
       cellClassName: "name-column--cell",
-    },
-    {
-      field: "age",
-      headerName: "Age",
-      type: "number",
-      headerAlign: "left",
-      align: "left",
     },
     {
       field: "phone",
       headerName: "Phone Number",
-      flex: 1,
+      flex: 0.3,
     },
     {
       field: "email",
       headerName: "Email",
-      flex: 1,
+      flex: 0.5,
     },
     {
       field: "address",
       headerName: "Address",
-      flex: 1,
+      flex: 0.6,
     },
     {
-      field: "city",
-      headerName: "City",
-      flex: 1,
+      field: "job",
+      headerName: "Job Category",
+      flex: 0.3,
     },
     {
-      field: "zipCode",
-      headerName: "Zip Code",
-      flex: 1,
+      field: "notes",
+      headerName: "Notes",
+      flex: 0.7,
     },
+    {
+      field: "cost",
+      headerName: "Cost",
+      flex: 0.2,
+    }, 
   ];
 
   return (

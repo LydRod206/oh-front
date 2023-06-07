@@ -8,7 +8,6 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
 import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
-import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import CollectionsIcon from '@mui/icons-material/Collections';
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import PetsIcon from '@mui/icons-material/Pets';
@@ -126,16 +125,9 @@ const Sidebar = () => {
               Data
             </Typography>
             <Item
-              title="Clients Information"
+              title="Clients"
               to="/contacts"
               icon={<ContactsOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Invoices Balances"
-              to="/invoices"
-              icon={<ReceiptOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
@@ -154,14 +146,6 @@ const Sidebar = () => {
             >
               Pages
             </Typography>
-        
-            <Item
-              title="Calendar"
-              to="/calendar"
-              icon={<CalendarTodayOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
             <Item
               title="Gallery"
               to="/gallery"

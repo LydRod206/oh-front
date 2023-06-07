@@ -164,7 +164,7 @@ export const themeSettings = (mode) => {
     },
     typography: {
       fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
-      fontSize: 12,
+      fontSize: 20,
       h1: {
         fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
         fontSize: 50,
@@ -187,7 +187,7 @@ export const themeSettings = (mode) => {
       },
       h6: {
         fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
-        fontSize: 14,
+        fontSize: 20,
       },
     },
   };
