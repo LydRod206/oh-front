@@ -60,18 +60,18 @@ const Contacts = () => {
     }, 
   ];
 
-  const MyComponent = () => {
-    useEffect(() => {
-      axios.get('https://your-backend.herokuapp.com/api/data')
-        .then(response => {
-          // Handle the response data
-          console.log(response.data);
-        })
-        .catch(error => {
-          // Handle any errors
-          console.error(error);
-        });
-    }, []);
+  // const MyComponent = () => {
+  //   useEffect(() => {
+  //     axios.get('https://your-backend.herokuapp.com/api/data')
+  //       .then(response => {
+  //         // Handle the response data
+  //         console.log(response.data);
+  //       })
+  //       .catch(error => {
+  //         // Handle any errors
+  //         console.error(error);
+  //       });
+  //   }, []);
   
 
   return (
