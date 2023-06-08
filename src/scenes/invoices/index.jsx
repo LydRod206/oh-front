@@ -4,18 +4,18 @@ import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
-import API from "../../data/API";
+import API from "../../api/API";
 
-
-const Contacts = () => {
+const Invoices = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const [invoices, setInvoices] = useState({});
+  const [invoices, setInvoices] = useState([]);
+
   useEffect(() => {
     API.getAllInvoices()
       .then((data) => {
         console.log(data.invoices);
-        setInvoices(data);
+        setInvoices(data.invoices);
       })
       .catch((err) => {
         console.log(err);
@@ -75,7 +75,7 @@ const Contacts = () => {
   return (
     <Box m="20px">
       <Header
-        title="CLIENTS"
+        title="ALL INVOICES"
         subtitle="List of Clients for Future Reference"
       />
       <Box
@@ -120,4 +120,4 @@ const Contacts = () => {
   );
 };
 
-export default Contacts;
+export default Invoices;
