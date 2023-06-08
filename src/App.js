@@ -21,6 +21,8 @@ function App() {
   const [theme, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
 
+
+
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
@@ -34,13 +36,13 @@ function App() {
               <Route path="/" element={<Dashboard />} />
               <Route path="/contacts" element={<Contacts />} />
               <Route path="/form" element={<Form />} />
-              <Route path="/gallery" element={<Gallery />} />
+              {/* <Route path="/gallery" element={<Gallery />} />
               <Route path="/childCarePage" element={<ChildCare />} />
               <Route path="/cleaningPage" element={<Cleaning />} />
               <Route path="/cookingPage" element={<Cooking />} />
               <Route path="/dogWalking" element={<Dog />} />
               <Route path="/handjobPage" element={<Handjobs />} />
-              <Route path="/yardWorkPage" element={<Yard />} />
+              <Route path="/yardWorkPage" element={<Yard />} /> */}
             </Routes>
           </main>
         </div>
