@@ -20,6 +20,25 @@ import './index.css';
 function App() {
   const [theme, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
+  const [show, setShow] = useState(true)
+  const [message, setMessage] = useState("");
+  const [data, setData] = useState(null);
+  
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch("http://localhost:9000");
+      const jsonData = await response.json();
+      console.log(data);
+      setData(jsonData);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
 
   return (
     <ColorModeContext.Provider value={colorMode}>
