@@ -1,15 +1,26 @@
+import React, { useState, useEffect } from "react";
 import { Box } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
-import { mockDataContacts } from "../../data/mockData";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
-import axios from 'axios';
+import API from "../../data/API";
 
 
 const Contacts = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [invoices, setInvoices] = useState({});
+  useEffect(() => {
+    API.getAllInvoices()
+      .then((data) => {
+        console.log(data.invoices);
+        setInvoices(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   const columns = [
     { 
@@ -23,7 +34,7 @@ const Contacts = () => {
       flex: 0.3,
     },
     {
-      field: "name",
+      field: "client",
       headerName: "Name",
       flex: 0.3,
       cellClassName: "name-column--cell",
@@ -34,44 +45,31 @@ const Contacts = () => {
       flex: 0.3,
     },
     {
-      field: "email",
-      headerName: "Email",
-      flex: 0.5,
-    },
-    {
       field: "address",
       headerName: "Address",
       flex: 0.6,
     },
     {
-      field: "job",
+      field: "workDescription",
       headerName: "Job Category",
       flex: 0.3,
-    },
-    {
-      field: "notes",
-      headerName: "Notes",
-      flex: 0.7,
     },
     {
       field: "cost",
       headerName: "Cost",
       flex: 0.2,
-    }, 
+    },
+    {
+      field: "expenses",
+      headerName: "Expenses",
+      flex: 0.2,
+    },
+    {
+      field: "isPaid",
+      headerName: "Paid",
+      flex: 0.2,
+    } 
   ];
-
-  // const MyComponent = () => {
-  //   useEffect(() => {
-  //     axios.get('https://your-backend.herokuapp.com/api/data')
-  //       .then(response => {
-  //         // Handle the response data
-  //         console.log(response.data);
-  //       })
-  //       .catch(error => {
-  //         // Handle any errors
-  //         console.error(error);
-  //       });
-  //   }, []);
   
 
   return (
@@ -113,7 +111,7 @@ const Contacts = () => {
         }}
       >
         <DataGrid
-          rows={mockDataContacts}
+          rows={invoices}
           columns={columns}
           components={{ Toolbar: GridToolbar }}
         />
