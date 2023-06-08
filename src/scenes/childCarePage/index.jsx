@@ -11,7 +11,7 @@ function ChildCare() {
           <Image src="./images/child-care-icon.png" rounded />
         </Col>
       </Row>
-    </Container>
+    </Container> 
   );
 }
 

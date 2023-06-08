@@ -1,56 +1,76 @@
+import React, { useState, useEffect } from "react";
 import { Box } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
-import { mockDataContacts } from "../../data/mockData";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
+import API from "../../data/API";
+
 
 const Contacts = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [invoices, setInvoices] = useState({});
+  useEffect(() => {
+    API.getAllInvoices()
+      .then((data) => {
+        console.log(data.invoices);
+        setInvoices(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   const columns = [
-    { field: "id", headerName: "ID", flex: 0.5 },
-    { field: "registrarId", headerName: "Registrar ID" },
-    {
-      field: "name",
-      headerName: "Name",
-      flex: 1,
-      cellClassName: "name-column--cell",
+    { 
+      field: "id", 
+      headerName: "ID", 
+      // flex: 0.5 
     },
     {
-      field: "age",
-      headerName: "Age",
-      type: "number",
-      headerAlign: "left",
-      align: "left",
+      field: "date",
+      headerName: "Date",
+      flex: 0.3,
+    },
+    {
+      field: "client",
+      headerName: "Name",
+      flex: 0.3,
+      cellClassName: "name-column--cell",
     },
     {
       field: "phone",
       headerName: "Phone Number",
-      flex: 1,
-    },
-    {
-      field: "email",
-      headerName: "Email",
-      flex: 1,
+      flex: 0.3,
     },
     {
       field: "address",
       headerName: "Address",
-      flex: 1,
+      flex: 0.6,
     },
     {
-      field: "city",
-      headerName: "City",
-      flex: 1,
+      field: "workDescription",
+      headerName: "Job Category",
+      flex: 0.3,
     },
     {
-      field: "zipCode",
-      headerName: "Zip Code",
-      flex: 1,
+      field: "cost",
+      headerName: "Cost",
+      flex: 0.2,
     },
+    {
+      field: "expenses",
+      headerName: "Expenses",
+      flex: 0.2,
+    },
+    {
+      field: "isPaid",
+      headerName: "Paid",
+      flex: 0.2,
+    } 
   ];
+  
 
   return (
     <Box m="20px">
@@ -91,7 +111,7 @@ const Contacts = () => {
         }}
       >
         <DataGrid
-          rows={mockDataContacts}
+          rows={invoices}
           columns={columns}
           components={{ Toolbar: GridToolbar }}
         />

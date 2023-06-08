@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const cloudinary = require('cloudinary');
-const { async } = require('q');
+// const { async } = require('q');
 
 const app = express();
 

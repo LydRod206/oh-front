@@ -8,7 +8,6 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
 import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
-import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import CollectionsIcon from '@mui/icons-material/Collections';
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import PetsIcon from '@mui/icons-material/Pets';
@@ -126,21 +125,14 @@ const Sidebar = () => {
               Data
             </Typography>
             <Item
-              title="Clients Information"
+              title="Invoices"
               to="/contacts"
               icon={<ContactsOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="Invoices Balances"
-              to="/invoices"
-              icon={<ReceiptOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="New Client"
+              title="New Invoice"
               to="/form"
               icon={<PersonOutlinedIcon />}
               selected={selected}
@@ -154,14 +146,6 @@ const Sidebar = () => {
             >
               Pages
             </Typography>
-        
-            <Item
-              title="Calendar"
-              to="/calendar"
-              icon={<CalendarTodayOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
             <Item
               title="Gallery"
               to="/gallery"
@@ -169,7 +153,7 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
-            <Item
+            {/* <Item
               title="Child Care"
               to="/childCarePage"
               icon={<ChildFriendlyIcon />}
@@ -210,7 +194,7 @@ const Sidebar = () => {
               icon={<YardIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
+            /> */}
           </Box>
         </Menu>
       </ProSidebar>
