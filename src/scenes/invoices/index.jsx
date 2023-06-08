@@ -1,3 +1,28 @@
+<<<<<<< HEAD:src/scenes/invoices/index.jsx
+import React, { useState, useEffect } from "react";
+import { Box } from "@mui/material";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import { tokens } from "../../theme";
+import Header from "../../components/Header";
+import { useTheme } from "@mui/material";
+import API from "../../api/API";
+
+const Invoices = () => {
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
+  const [invoices, setInvoices] = useState([]);
+
+  useEffect(() => {
+    API.getAllInvoices()
+      .then((data) => {
+        console.log(data.invoices);
+        setInvoices(data.invoices);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+=======
 import React, { useState, Fragment } from "react";
 import "./App.css";
 import ReadOnlyRow from "./ReadOnlyRow";
@@ -19,6 +44,7 @@ const Contacts = () => {
     expenses: "",
     paid: "",
   });
+>>>>>>> dev:src/scenes/contacts/index.jsx
 
   const [editFormData, setEditFormData] = useState({
     date: "",
@@ -132,6 +158,49 @@ const Contacts = () => {
   };
 
   return (
+<<<<<<< HEAD:src/scenes/invoices/index.jsx
+    <Box m="20px">
+      <Header
+        title="ALL INVOICES"
+        subtitle="List of Clients for Future Reference"
+      />
+      <Box
+        m="40px 0 0 0"
+        height="75vh"
+        sx={{
+          "& .MuiDataGrid-root": {
+            border: "none",
+          },
+          "& .MuiDataGrid-cell": {
+            borderBottom: "none",
+          },
+          "& .name-column--cell": {
+            color: colors.greenAccent[300],
+          },
+          "& .MuiDataGrid-columnHeaders": {
+            backgroundColor: colors.blueAccent[700],
+            borderBottom: "none",
+          },
+          "& .MuiDataGrid-virtualScroller": {
+            backgroundColor: colors.primary[400],
+          },
+          "& .MuiDataGrid-footerContainer": {
+            borderTop: "none",
+            backgroundColor: colors.blueAccent[700],
+          },
+          "& .MuiCheckbox-root": {
+            color: `${colors.greenAccent[200]} !important`,
+          },
+          "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
+            color: `${colors.grey[100]} !important`,
+          },
+        }}
+      >
+        <DataGrid
+          rows={invoices}
+          columns={columns}
+          components={{ Toolbar: GridToolbar }}
+=======
     <div className="app-container">
       <header>
         <h1>INVOICES </h1>
@@ -182,6 +251,7 @@ const Contacts = () => {
           placeholder="Date"
           onChange={handleAddFormChange}
           
+>>>>>>> dev:src/scenes/contacts/index.jsx
         />
         <input
           type="text"
@@ -240,6 +310,9 @@ const Contacts = () => {
 };
 export default Contacts;
 
+<<<<<<< HEAD:src/scenes/invoices/index.jsx
+export default Invoices;
+=======
   //   API.getAllInvoices()
   //     .then((data) => {
   //       console.log(data.invoices);
@@ -301,3 +374,4 @@ export default Contacts;
   
 
 //  
+>>>>>>> dev:src/scenes/contacts/index.jsx
