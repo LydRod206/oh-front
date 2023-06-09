@@ -10,7 +10,7 @@ import API from "../../api/API";
 const Contacts = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const [invoices, setInvoices] = useState({});
+  const [invoices, setInvoices] = useState([]);
   useEffect(() => {
     API.getAllInvoices()
       .then((data) => {
@@ -113,7 +113,7 @@ const Contacts = () => {
         <DataGrid
           rows={invoices}
           columns={columns}
-          components={{ Toolbar: GridToolbar }}
+          slots={{ Toolbar: GridToolbar }}
         />
       </Box>
     </Box>
