@@ -15,7 +15,7 @@ function App() {
   const [theme, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
 
-  fetch("https://cryptic-woodland-28293.herokuapp.com/greeting").then(res =>
+  fetch("https://cryptic-woodland-28293.herokuapp.com/api/invoice").then(res =>
   res.json()
   ).then(data => console.log(data))
 
