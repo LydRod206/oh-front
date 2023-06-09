@@ -14,18 +14,17 @@ export default function SendEmailTesting() {
 
         if (recipient_email && subject && message) {
 
-
-                axios.post("http://localhost:5001/send_email", {
-                    recipient_email: recipient_email,
-                    subject: subject,
-                    message: message,
-                    //need all other info here
-                })
-                .then(() => alert("Sent PERFECTLY!"))
-                .catch((err) => alert(err));
-            return;
-        }
-        return alert("You gotta fill out all the fields")
+            axios.post("https://only-hands.netlify.app/send_email", {
+                recipient_email: recipient_email,
+                subject: subject,
+                message: message,
+                //need all other info here. Maybe no alert and it's just the box that changes color
+            })
+            .then(() => alert("Sent PERFECTLY!")) 
+            .catch((err) => alert(err));
+        return;
+    }
+    return alert("You gotta fill out all the fields")
     }
 
     return (
@@ -65,7 +64,7 @@ export default function SendEmailTesting() {
                 onClick={() => sendMail()} 
                 variant="primary" type="submit"
             >
-                Submit
+                Send
             </Button>
         </Form>
         );

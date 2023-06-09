@@ -81,8 +81,8 @@ const Sidebar = () => {
               >
                 <img
                   alt="logo"
-                  width="100px"
-                  height="100px"
+                  width="130px"
+                  height="130px"
                   src={`../../assets/logo-wht-bg.png`}
                   style={{ cursor: "pointer", borderRadius: "50%" }}
                 />
@@ -102,7 +102,7 @@ const Sidebar = () => {
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                  Christian Gray
+                  Insert User Name
                 </Typography>
               </Box>
             </Box>
@@ -126,7 +126,7 @@ const Sidebar = () => {
             </Typography>
             <Item
               title="Invoices"
-              to="/invoices"
+              to="/api/invoices"
               icon={<ContactsOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
@@ -144,10 +144,10 @@ const Sidebar = () => {
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
             >
-              Pages
+              Upload
             </Typography>
             <Item
-              title="Gallery"
+              title="Files 'n Photos"
               to="/gallery"
               icon={<CollectionsIcon />}
               selected={selected}
@@ -155,8 +155,8 @@ const Sidebar = () => {
             />
             
             <Item
-              title="Dog Walking"
-              to="/dogWalking"
+              title="Email Testing"
+              to="/emailtesting"
               // icon={<PetsIcon />}
               selected={selected}
               setSelected={setSelected}

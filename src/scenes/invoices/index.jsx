@@ -121,3 +121,6 @@ const Contacts = () => {
 };
 
 export default Contacts;
+
+
+// onClick handler, map over specific clicked on data
