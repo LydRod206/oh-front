@@ -5,6 +5,7 @@ import Sidebar from "./scenes/global/Sidebar";
 import Dashboard from "./scenes/dashboard";
 import Invoices from "./scenes/invoices";
 import Form from "./scenes/form";
+import DogWalking from "./scenes/dogWalking"; // Added import
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 import "./index.css";
@@ -25,6 +26,7 @@ function App() {
               <Route path="/" element={<Dashboard />} />
               <Route path="/api/invoices" element={<Invoices />} />
               <Route path="/form" element={<Form />} />
+              <Route path="/dogWalking" element={<DogWalking />} />
             </Routes>
           </main>
         </div>
