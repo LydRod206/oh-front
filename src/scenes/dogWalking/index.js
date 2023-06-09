@@ -23,7 +23,7 @@ function DogWalking() {
       {data && (
         <ul>
           {data.map((item) => (
-            <li key={item.id}>{item.workDescription}</li>
+            <li>{item.id}</li>
           ))}
         </ul>
       )}
