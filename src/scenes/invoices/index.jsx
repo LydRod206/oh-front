@@ -22,6 +22,8 @@ const Contacts = () => {
       });
   }, []);
 
+  
+
   const columns = [
     { 
       field: "id", 
@@ -32,42 +34,51 @@ const Contacts = () => {
       field: "date",
       headerName: "Date",
       flex: 0.3,
+      editable: true
     },
     {
       field: "client",
       headerName: "Name",
       flex: 0.3,
       cellClassName: "name-column--cell",
+      editable: true
     },
     {
       field: "phone",
       headerName: "Phone Number",
       flex: 0.3,
+      editable: true
     },
     {
       field: "address",
       headerName: "Address",
       flex: 0.6,
+      editable: true
     },
     {
       field: "workDescription",
       headerName: "Job Category",
       flex: 0.3,
+      editable: true
+
     },
     {
       field: "cost",
       headerName: "Cost",
       flex: 0.2,
+      editable: true
     },
     {
       field: "expenses",
       headerName: "Expenses",
       flex: 0.2,
+      editable: true
     },
     {
       field: "isPaid",
       headerName: "Paid",
       flex: 0.2,
+      editable: true
     } 
   ];
   
