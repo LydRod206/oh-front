@@ -14,13 +14,18 @@ export default function SendEmailTesting() {
 
         if (recipient_email && subject && message) {
 
-            axios.post("https://only-hands.netlify.app/send_email", {
+            // axios.post("http://localhost:9000/send_email", {
+            axios.post("https://cryptic-woodland-28293.herokuapp.com/send_email", {
                 recipient_email: recipient_email,
                 subject: subject,
                 message: message,
                 //need all other info here. Maybe no alert and it's just the box that changes color
             })
-            .then(() => alert("Sent PERFECTLY!")) 
+            .then((res) => {
+                console.log(res)
+                alert("Sent PERFECTLY!")
+            
+            }) 
             .catch((err) => alert(err));
         return;
     }
@@ -28,7 +33,11 @@ export default function SendEmailTesting() {
     }
 
     return (
-        <Form>
+        <Form onSubmit={(event) => {
+            console.log(event.target)
+            event.preventDefault()
+            sendMail()
+        } }>
             <Form.Group controlId="formBasicEmail">
             <Form.Label>I send emails!</Form.Label>
             <Form.Control 
@@ -61,7 +70,7 @@ export default function SendEmailTesting() {
             </Form.Group>
      */}
             <Button 
-                onClick={() => sendMail()} 
+                // onClick={() => sendMail()} 
                 variant="primary" type="submit"
             >
                 Send
