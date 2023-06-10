@@ -15,9 +15,9 @@ function App() {
   const [theme, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
 
-  fetch("https://cryptic-woodland-28293.herokuapp.com/api/invoice").then(res =>
-  res.json()
-  ).then(data => console.log(data))
+  // fetch("https://cryptic-woodland-28293.herokuapp.com").then(res =>
+  // res.json()
+  // ).then(data => console.log(data))
 
 
   return (
