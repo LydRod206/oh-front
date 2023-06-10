@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../api/firebase";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
@@ -29,6 +31,14 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
 };
 
 const Sidebar = () => {
+  const [displayName, setDisplayName] = useState('');
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setDisplayName(user.displayName);
+      }
+    });
+  }, [displayName]);
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -95,7 +105,7 @@ const Sidebar = () => {
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                  Insert User here
+                  {displayName}
                 </Typography>
               </Box>
             </Box>

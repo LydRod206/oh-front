@@ -32,6 +32,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.1.4",
     "express": "^4.18.2",
+    "firebase": "^9.22.2",
     "formik": "^2.4.1",
     "mysql2": "^3.3.3",
     "netlify-cli": "^15.3.1",

@@ -1,7 +1,19 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../api/firebase";
 import axios from "axios";
 
 function DogWalking() {
+  const navigate = useNavigate();
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        navigate("/login");
+      }
+    });
+  }, [navigate]);
+  
   const [data, setData] = useState(null);
 
   useEffect(() => {

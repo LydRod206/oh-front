@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../api/firebase";
 import { Box } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
@@ -8,13 +11,21 @@ import API from "../../api/API";
 
 
 const Contacts = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        navigate("/login");
+      }
+    });
+  }, [navigate]);
+
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [invoices, setInvoices] = useState([]);
   useEffect(() => {
     API.getAllInvoices()
       .then((data) => {
-        console.log(data.invoices);
         setInvoices(data);
       })
       .catch((err) => {

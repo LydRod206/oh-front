@@ -1,31 +1,40 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./api/firebase";
 import Topbar from "./scenes/global/Topbar";
+import Signup from "./scenes/auth/Signup";
+import Login from "./scenes/auth/Login";
 import Sidebar from "./scenes/global/Sidebar";
 import Dashboard from "./scenes/dashboard";
 import Invoices from "./scenes/invoices";
 import Form from "./scenes/form";
 import EmailTesting from "./components/SendEmailTesting"; // Added import
+import Gallery from "./scenes/gallery";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 import "./index.css";
-// import Login from './Login';
 
 function App() {
   const [theme, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
-
-  // fetch("https://cryptic-woodland-28293.herokuapp.com").then(res =>
-  // res.json()
-  // ).then(data => console.log(data))
-
+  
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setIsSidebar(true);
+      } else {
+        setIsSidebar(false);
+      }
+    });
+  }, []);
 
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <div className="app">
-          <Sidebar isSidebar={isSidebar} />
+          {isSidebar ? <Sidebar isSidebar={isSidebar} /> : null}
           <main className="content">
             <Topbar setIsSidebar={setIsSidebar} />
             <Routes>
@@ -33,6 +42,9 @@ function App() {
               <Route path="/api/invoices" element={<Invoices />} />
               <Route path="/form" element={<Form />} />
               <Route path="/emailtesting" element={<EmailTesting />} />
+              <Route path="/gallery" element={<Gallery />} />
+              <Route path="/signup" element={<Signup/>}/>
+              <Route path="/login" element={<Login/>}/>
             </Routes>
             </main>
             </div></ThemeProvider>
@@ -41,80 +53,3 @@ function App() {
 }
 
 export default App;
-
-
-
-
-
-
-// // App.js
-// import React, { useState } from "react";
-// import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-// import Dashboard from "./scenes/dashboard";
-// import Invoices from "./scenes/invoices";
-// import Form from "./scenes/form";
-// import DogWalking from "./scenes/dogWalking";
-// import { CssBaseline, ThemeProvider } from "@mui/material";
-// import { ColorModeContext, useMode } from "./theme";
-// import "./index.css";
-// import Login from "./components/Login";
-// import Signup from "./components/Signup";
-
-// function App() {
-//   const [theme, colorMode] = useMode();
-//   const [isSidebar, setIsSidebar] = useState(true);
-
-//   return (
-//     <ColorModeContext.Provider value={colorMode}>
-//       <ThemeProvider theme={theme}>
-//         <CssBaseline />
-//         <div className="app">
-//             <Routes>
-//               <Route path="/" element={<Signup />} />
-//               <Route path="/dashboard" element={<Dashboard />} />
-//               <Route path="/api/invoices" element={<Invoices />} />
-//               <Route path="/form" element={<Form />} />
-//               <Route path="/dogWalking" element={<DogWalking />} />
-//               <Route path="/login" element={<Login />} />
-//               <Route path="/signup" element={<Signup />} />
-//             </Routes>
-//         </div>
-//       </ThemeProvider>
-//     </ColorModeContext.Provider>
-//   );
-// }
-
-// export default App;
-
-
-
-
-
-
-// import React, { useState } from "react";
-// import { Routes, Route } from "react-router-dom";
-// import Topbar from "./scenes/global/Topbar";
-// import Sidebar from "./scenes/global/Sidebar";
-// import Dashboard from "./scenes/dashboard";
-// import Invoices from "./scenes/invoices";
-// import Form from "./scenes/form";
-// import EmailTesting from "./components/SendEmailTesting"; // Added import
-// import { CssBaseline, ThemeProvider } from "@mui/material";
-// import { ColorModeContext, useMode } from "./theme";
-// import "./index.css";
-// // import Login from './Login';
-
-// function App() {
-//   fetch("https://cryptic-woodland-28293.herokuapp.com/greeting").then(res =>
-//   res.json()
-//   ).then(data => console.log(data))
-
-
-//   return (
-//     // <div className="App">
-//     //   app
-//     // </div>
-
-
-
-
