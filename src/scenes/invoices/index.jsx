@@ -113,7 +113,10 @@ const Contacts = () => {
         <DataGrid
           rows={invoices}
           columns={columns}
-          slots={{ Toolbar: GridToolbar }}
+          components={{
+            Toolbar: GridToolbar,
+          }}
+          disableColumnFilter={false} 
         />
       </Box>
     </Box>
@@ -122,5 +125,3 @@ const Contacts = () => {
 
 export default Contacts;
 
-
-// onClick handler, map over specific clicked on data
