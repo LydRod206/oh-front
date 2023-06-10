@@ -4,13 +4,13 @@ import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
-import API from "../../data/API";
+import API from "../../api/API";
 
 
 const Contacts = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const [invoices, setInvoices] = useState({});
+  const [invoices, setInvoices] = useState([]);
   useEffect(() => {
     API.getAllInvoices()
       .then((data) => {
@@ -113,7 +113,10 @@ const Contacts = () => {
         <DataGrid
           rows={invoices}
           columns={columns}
-          components={{ Toolbar: GridToolbar }}
+          components={{
+            Toolbar: GridToolbar,
+          }}
+          disableColumnFilter={false} 
         />
       </Box>
     </Box>
@@ -121,3 +124,4 @@ const Contacts = () => {
 };
 
 export default Contacts;
+

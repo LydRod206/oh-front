@@ -6,16 +6,9 @@ import "react-pro-sidebar/dist/css/styles.css";
 import { tokens } from "../../theme";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
-import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import CollectionsIcon from '@mui/icons-material/Collections';
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-import PetsIcon from '@mui/icons-material/Pets';
-import OutdoorGrillIcon from '@mui/icons-material/OutdoorGrill';
-import CleaningServicesIcon from '@mui/icons-material/CleaningServices';
-import ChildFriendlyIcon from '@mui/icons-material/ChildFriendly';
-import HandymanIcon from '@mui/icons-material/Handyman';
-import YardIcon from '@mui/icons-material/Yard';
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -81,8 +74,8 @@ const Sidebar = () => {
               >
                 <img
                   alt="logo"
-                  width="100px"
-                  height="100px"
+                  width="130px"
+                  height="130px"
                   src={`../../assets/logo-wht-bg.png`}
                   style={{ cursor: "pointer", borderRadius: "50%" }}
                 />
@@ -102,7 +95,7 @@ const Sidebar = () => {
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                  Christian Gray
+                  Insert User here
                 </Typography>
               </Box>
             </Box>
@@ -122,11 +115,11 @@ const Sidebar = () => {
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
             >
-              Data
+              DATA
             </Typography>
             <Item
               title="Invoices"
-              to="/contacts"
+              to="/api/invoices"
               icon={<ContactsOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
@@ -144,57 +137,23 @@ const Sidebar = () => {
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
             >
-              Pages
+              Upload
             </Typography>
             <Item
-              title="Gallery"
+              title="Files 'n Photos"
               to="/gallery"
               icon={<CollectionsIcon />}
               selected={selected}
               setSelected={setSelected}
             />
-            {/* <Item
-              title="Child Care"
-              to="/childCarePage"
-              icon={<ChildFriendlyIcon />}
+            
+            <Item
+              title="Email Testing"
+              to="/emailtesting"
+              // icon={<PetsIcon />}
               selected={selected}
               setSelected={setSelected}
             />
-            <Item
-              title="Cleaning"
-              to="/cleaningPage"
-              icon={<CleaningServicesIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Cooking"
-              to="/cookingPage"
-              icon={<OutdoorGrillIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Dog Walking"
-              to="/dogWalking"
-              icon={<PetsIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Hand Jobs"
-              to="/handjobPage"
-              icon={<HandymanIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Yard Work"
-              to="/yardWorkPage"
-              icon={<YardIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            /> */}
           </Box>
         </Menu>
       </ProSidebar>
