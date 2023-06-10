@@ -14,22 +14,30 @@ export default function SendEmailTesting() {
 
         if (recipient_email && subject && message) {
 
-
-                axios.post("http://localhost:5001/send_email", {
-                    recipient_email: recipient_email,
-                    subject: subject,
-                    message: message,
-                    //need all other info here
-                })
-                .then(() => alert("Sent PERFECTLY!"))
-                .catch((err) => alert(err));
-            return;
-        }
-        return alert("You gotta fill out all the fields")
+            // axios.post("http://localhost:9000/send_email", {
+            axios.post("https://cryptic-woodland-28293.herokuapp.com/send_email", {
+                recipient_email: recipient_email,
+                subject: subject,
+                message: message,
+                //need all other info here. Maybe no alert and it's just the box that changes color
+            })
+            .then((res) => {
+                console.log(res)
+                alert("Sent PERFECTLY!")
+            
+            }) 
+            .catch((err) => alert(err));
+        return;
+    }
+    return alert("You gotta fill out all the fields")
     }
 
     return (
-        <Form>
+        <Form onSubmit={(event) => {
+            console.log(event.target)
+            event.preventDefault()
+            sendMail()
+        } }>
             <Form.Group controlId="formBasicEmail">
             <Form.Label>I send emails!</Form.Label>
             <Form.Control 
@@ -62,10 +70,10 @@ export default function SendEmailTesting() {
             </Form.Group>
      */}
             <Button 
-                onClick={() => sendMail()} 
+                // onClick={() => sendMail()} 
                 variant="primary" type="submit"
             >
-                Submit
+                Send
             </Button>
         </Form>
         );
