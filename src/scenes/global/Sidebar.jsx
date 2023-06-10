@@ -95,7 +95,7 @@ const Sidebar = () => {
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                  Insert User Name
+                  Insert User here
                 </Typography>
               </Box>
             </Box>
