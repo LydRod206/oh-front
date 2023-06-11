@@ -38,7 +38,6 @@ const Calendar = () => {
     if (!client_id) {
       return;
     }
-    console.log(selected.allDay);
     API.createJob({
       title,
       start: selected.startStr,
