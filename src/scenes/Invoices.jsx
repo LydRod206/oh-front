@@ -10,7 +10,7 @@ import { useTheme } from "@mui/material";
 import API from "../api/API";
 
 
-const Contacts = () => {
+const Invoices = () => {
   const navigate = useNavigate();
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -33,13 +33,22 @@ const Contacts = () => {
       });
   }, []);
 
-  
-
   const columns = [
     { 
       field: "id", 
       headerName: "ID", 
       // flex: 0.5 
+    },
+    {
+      field: "client_id",
+      headerName: "Client ID",
+      flex: 0.3,
+    },
+    {
+      field: "services",
+      headerName: "Services",
+      flex: 0.3,
+      editable: true
     },
     {
       field: "date",
@@ -48,35 +57,15 @@ const Contacts = () => {
       editable: true
     },
     {
-      field: "client",
-      headerName: "Name",
-      flex: 0.3,
-      cellClassName: "name-column--cell",
-      editable: true
-    },
-    {
-      field: "phone",
-      headerName: "Phone Number",
-      flex: 0.3,
-      editable: true
-    },
-    {
-      field: "address",
-      headerName: "Address",
+      field: "work_description",
+      headerName: "Description",
       flex: 0.6,
       editable: true
     },
     {
-      field: "workDescription",
-      headerName: "Job Category",
-      flex: 0.3,
-      editable: true
-
-    },
-    {
       field: "cost",
       headerName: "Cost",
-      flex: 0.2,
+      flex: 0.3,
       editable: true
     },
     {
@@ -86,8 +75,8 @@ const Contacts = () => {
       editable: true
     },
     {
-      field: "isPaid",
-      headerName: "Paid",
+      field: "status",
+      headerName: "Status",
       flex: 0.2,
       editable: true
     } 
@@ -97,8 +86,8 @@ const Contacts = () => {
   return (
     <Box m="20px">
       <Header
-        title="CLIENTS"
-        subtitle="List of Clients for Future Reference"
+        title="Invoices"
+        subtitle="List of Clients"
       />
       <Box
         m="40px 0 0 0"
@@ -135,7 +124,7 @@ const Contacts = () => {
         <DataGrid
           rows={invoices}
           columns={columns}
-          components={{
+          slots={{
             Toolbar: GridToolbar,
           }}
           disableColumnFilter={false} 
@@ -145,5 +134,5 @@ const Contacts = () => {
   );
 };
 
-export default Contacts;
+export default Invoices;
 

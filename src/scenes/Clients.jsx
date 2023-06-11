@@ -9,7 +9,6 @@ import Header from "../components/Header";
 import { useTheme } from "@mui/material";
 import API from "../api/API";
 
-
 const Contacts = () => {
   const navigate = useNavigate();
   useEffect(() => {
@@ -22,75 +21,47 @@ const Contacts = () => {
 
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const [invoices, setInvoices] = useState([]);
+  const [clients, setClients] = useState([]);
   useEffect(() => {
-    API.getAllInvoices()
+    API.getAllClients()
       .then((data) => {
-        setInvoices(data);
+        setClients(data.clients);
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
 
-  
-
   const columns = [
     { 
       field: "id", 
-      headerName: "ID", 
-      // flex: 0.5 
+      headerName: "ID",
+      flex: 0.3
     },
     {
-      field: "date",
-      headerName: "Date",
-      flex: 0.3,
-      editable: true
-    },
-    {
-      field: "client",
+      field: "name",
       headerName: "Name",
-      flex: 0.3,
-      cellClassName: "name-column--cell",
-      editable: true
-    },
-    {
-      field: "phone",
-      headerName: "Phone Number",
       flex: 0.3,
       editable: true
     },
     {
       field: "address",
       headerName: "Address",
-      flex: 0.6,
-      editable: true
-    },
-    {
-      field: "workDescription",
-      headerName: "Job Category",
       flex: 0.3,
       editable: true
-
     },
     {
-      field: "cost",
-      headerName: "Cost",
-      flex: 0.2,
+      field: "phone",
+      headerName: "Phone",
+      flex: 0.3,
       editable: true
     },
     {
-      field: "expenses",
-      headerName: "Expenses",
-      flex: 0.2,
+      field: "email",
+      headerName: "Email",
+      flex: 0.6,
       editable: true
-    },
-    {
-      field: "isPaid",
-      headerName: "Paid",
-      flex: 0.2,
-      editable: true
-    } 
+    }
   ];
   
 
@@ -133,9 +104,9 @@ const Contacts = () => {
         }}
       >
         <DataGrid
-          rows={invoices}
+          rows={clients}
           columns={columns}
-          components={{
+          slots={{
             Toolbar: GridToolbar,
           }}
           disableColumnFilter={false} 
