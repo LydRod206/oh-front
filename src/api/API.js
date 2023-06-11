@@ -1,4 +1,4 @@
-const URL_PREFIX = "http://localhost:9000/api";
+const URL_PREFIX = process.env.REACT_APP_BACKEND_URL_PREFIX;
 
 const API = {
     getAllInvoices:()=>{
