@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../../api/firebase";
+import { auth } from "../api/firebase";
 import { Box } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
-import { tokens } from "../../theme";
-import Header from "../../components/Header";
+import { tokens } from "../theme";
+import Header from "../components/Header";
 import { useTheme } from "@mui/material";
-import API from "../../api/API";
+import API from "../api/API";
 
 
 const Contacts = () => {

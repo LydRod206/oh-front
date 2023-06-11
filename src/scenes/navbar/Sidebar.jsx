@@ -39,6 +39,7 @@ const Sidebar = () => {
       }
     });
   }, [displayName]);
+
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -125,18 +126,40 @@ const Sidebar = () => {
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
             >
-              DATA
+              CLIENTS
+            </Typography>
+            <Item
+              title="Clients"
+              to="/clients"
+              icon={<ContactsOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="New Client"
+              to="/ClientForm"
+              icon={<PersonOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+
+            <Typography
+              variant="h6"
+              color={colors.grey[300]}
+              sx={{ m: "15px 0 5px 20px" }}
+            >
+              INVOICES
             </Typography>
             <Item
               title="Invoices"
-              to="/api/invoices"
+              to="/invoices"
               icon={<ContactsOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
               title="New Invoice"
-              to="/form"
+              to="/InvoiceForm"
               icon={<PersonOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}

@@ -1,14 +1,14 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../../api/firebase";
+import { auth } from "../api/firebase";
 import { Box, Button, TextField } from "@mui/material";
 import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import Header from "../../components/Header";
+import Header from "../components/Header";
 
-const Form = () => {
+const ClientForm = () => {
   const navigate = useNavigate();
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -164,4 +164,4 @@ const initialValues = {
   address2: "",
 };
 
-export default Form;
+export default ClientForm;

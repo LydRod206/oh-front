@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../../api/firebase";
+import { auth } from "../api/firebase";
 import { formatDate } from "@fullcalendar/core";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
@@ -9,8 +9,8 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import listPlugin from "@fullcalendar/list";
 import {Box,List,ListItem,ListItemText,Typography,useTheme,} from "@mui/material";
-import Header from "../../components/Header";
-import { tokens } from "../../theme";
+import Header from "../components/Header";
+import { tokens } from "../theme";
 
 const Calendar = () => {
   const navigate = useNavigate();
