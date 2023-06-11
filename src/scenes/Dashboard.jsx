@@ -12,7 +12,6 @@ import {Box,List,ListItem,ListItemText,Typography,useTheme,} from "@mui/material
 import Header from "../components/Header";
 import { tokens } from "../theme";
 import API from "../api/API";
-import { set } from "react-hook-form";
 
 const Calendar = () => {
   const navigate = useNavigate();
@@ -39,10 +38,12 @@ const Calendar = () => {
     if (!client_id) {
       return;
     }
+    console.log(selected.allDay);
     API.createJob({
       title,
       start: selected.startStr,
       end: selected.endStr,
+      allDay: selected.allDay,
       client_id: client_id,
     })
     .then((data) => {
@@ -53,6 +54,7 @@ const Calendar = () => {
           title: data.job.title,
           start: data.job.start,
           end: data.job.end,
+          allDay: data.job.allDay,
           client_id: data.job.client_id,
         },
       ]);
@@ -93,6 +95,7 @@ const Calendar = () => {
             title: job.title,
             start: job.start,
             end: job.end,
+            allDay: job.allDay,
             client_id: job.client_id,
           })))
       })
