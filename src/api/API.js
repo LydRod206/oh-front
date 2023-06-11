@@ -119,6 +119,65 @@ const API = {
             }
         });
     },
+    getAllJobs:()=>{
+        return fetch(`${URL_PREFIX}/jobs`).then(res=>{
+            if (res.ok) {
+                return res.json();
+            } else {
+                throw new Error("failed to fetch jobs");
+            }
+        })
+    },
+    getJobById:(id)=>{
+        return fetch(`${URL_PREFIX}/jobs/${id}`).then(res=>{
+            if (res.ok) {
+                return res.json();
+            } else {
+                throw new Error("failed to fetch job");
+            }
+        })
+    },
+    createJob:(data)=>{
+        return fetch(`${URL_PREFIX}/jobs`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        }).then(res => {
+            if (res.ok) {
+                return res.json();
+            } else {
+                throw new Error("failed to create job");
+            }
+        });
+    },
+    updateJob:(id, data) => {
+        return fetch(`${URL_PREFIX}/jobs/${id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        }).then(res => {
+            if (res.ok) {
+                return res.json();
+            } else {
+                throw new Error("failed to update job");
+            }
+        });
+    },
+    deleteJob:(id) => {
+        return fetch(`${URL_PREFIX}/jobs/${id}`, {
+            method: "DELETE",
+        }).then(res => {
+            if (res.ok) {
+                return res.json({message: "success"});
+            } else {
+                throw new Error("failed to delete job");
+            }
+        });
+    }
 };
 
 export default API;

@@ -11,6 +11,8 @@ import listPlugin from "@fullcalendar/list";
 import {Box,List,ListItem,ListItemText,Typography,useTheme,} from "@mui/material";
 import Header from "../components/Header";
 import { tokens } from "../theme";
+import API from "../api/API";
+import { set } from "react-hook-form";
 
 const Calendar = () => {
   const navigate = useNavigate();
@@ -25,21 +27,39 @@ const Calendar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [currentEvents, setCurrentEvents] = useState([]);
+  //const [jobs, setJobs] = useState([]);
 
   const handleDateClick = (selected) => {
     const title = prompt("Please enter a new title for your event");
-    const calendarApi = selected.view.calendar;
-    calendarApi.unselect();
+    const client_id = prompt("Please enter a client ID for your event");
 
-    if (title) {
-      calendarApi.addEvent({
-        id: `${selected.dateStr}-${title}`,
-        title,
-        start: selected.startStr,
-        end: selected.endStr,
-        allDay: selected.allDay,
-      });
+    if (!title) {
+      return;
     }
+    if (!client_id) {
+      return;
+    }
+    API.createJob({
+      title,
+      start: selected.startStr,
+      end: selected.endStr,
+      client_id: client_id,
+    })
+    .then((data) => {
+      setCurrentEvents([
+        ...currentEvents,
+        {
+          id: data.job.id,
+          title: data.job.title,
+          start: data.job.start,
+          end: data.job.end,
+          client_id: data.job.client_id,
+        },
+      ]);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   };
 
   const handleEventClick = (selected) => {
@@ -48,9 +68,38 @@ const Calendar = () => {
         `Are you sure you want to delete the event '${selected.event.title}'`
       )
     ) {
-      selected.event.remove();
+      API.deleteJob(selected.event.id)
+        .then((data) => {
+          selected.event.remove();
+          currentEvents.splice(
+            currentEvents.findIndex((event) => event.id === selected.event.id),
+            1
+          );
+          setCurrentEvents([...currentEvents]);
+        })
+        .catch((err) => {
+          console.log(err);
+        }
+      );
     }
   };
+
+  useEffect(() => {
+    API.getAllJobs()
+      .then((data) => {
+        setCurrentEvents(
+          data.jobs.map((job) => ({
+            id: job.id,
+            title: job.title,
+            start: job.start,
+            end: job.end,
+            client_id: job.client_id,
+          })))
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   return (
     <Box m="20px">
@@ -83,11 +132,12 @@ const Calendar = () => {
                   primary={event.title}
                   secondary={
                     <Typography>
-                      {formatDate(event.start, {
+                      {event.client_id && `${event.client_id} - 
+                      ${formatDate(event.start, {
                         year: "numeric",
                         month: "short",
                         day: "numeric",
-                      })}
+                      })}`}                      
                     </Typography>
                   }
                 />
@@ -111,6 +161,7 @@ const Calendar = () => {
               center: "title",
               right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth",
             }}
+            events={currentEvents}
             initialView="dayGridMonth"
             editable={true}
             selectable={true}
@@ -118,7 +169,6 @@ const Calendar = () => {
             dayMaxEvents={true}
             select={handleDateClick}
             eventClick={handleEventClick}
-            eventsSet={(events) => setCurrentEvents(events)}
           />
         </Box>
       </Box>
