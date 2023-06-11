@@ -26,7 +26,7 @@ const Invoices = () => {
   useEffect(() => {
     API.getAllInvoices()
       .then((data) => {
-        setInvoices(data);
+        setInvoices(data.invoices);
       })
       .catch((err) => {
         console.log(err);
