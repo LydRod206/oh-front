@@ -3,11 +3,30 @@ import { useNavigate } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../api/firebase";
 import { Box } from "@mui/material";
-import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import { DataGrid, GridActionsCellItem, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../theme";
 import Header from "../components/Header";
 import { useTheme } from "@mui/material";
 import API from "../api/API";
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
+import DeleteIcon from '@mui/icons-material/DeleteOutlined';
+
+const usePersistClient = () => {
+  return React.useCallback(
+    (client) => 
+    new Promise((resolve, reject) => {
+      API.updateClient(client.id, client)
+        .then((data) => {
+          resolve(data.client);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    }),
+    []
+  );
+};
 
 const Contacts = () => {
   const navigate = useNavigate();
@@ -19,8 +38,11 @@ const Contacts = () => {
     });
   }, [navigate]);
 
+  const mutateRow = usePersistClient();
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [snackbar, setSnackbar] = useState(null);
+  const handleCloseSnackbar = () => setSnackbar(null);
   const [clients, setClients] = useState([]);
   useEffect(() => {
     API.getAllClients()
@@ -31,6 +53,34 @@ const Contacts = () => {
         console.log(err);
       });
   }, []);
+
+  const processRowUpdate = React.useCallback(
+    async (newRow) => {
+      const response = await mutateRow(newRow);
+      setSnackbar({ children: 'Client Updated Successfully', severity: 'success'})
+      return response;
+    },
+    [mutateRow],
+  );
+
+  const handleProcessRowUpdateError = React.useCallback((error) => {
+    setSnackbar({ children: error.message, severity: 'error'});
+  }, []);
+
+  const handleDeleteClick = (id) => () => {
+    console.log("deleting id: " + id);
+    API.deleteClient(id)
+      .then((data) => {
+        console.log(data);
+        setSnackbar({ children: 'Client Deleted Successfully', severity: 'success'})
+        setClients(clients.filter((row) => row.id !== id));
+      })
+      .catch((err) => {
+        console.log(err);
+        setSnackbar({ children: err.message, severity: 'error'})
+      });
+    
+  };
 
   const columns = [
     { 
@@ -61,6 +111,23 @@ const Contacts = () => {
       headerName: "Email",
       flex: 0.6,
       editable: true
+    },
+    {
+      field: 'actions',
+      type: 'actions',
+      headerName: 'Actions',
+      width: 100,
+      cellClassName: 'actions',
+      getActions: ({ id }) => {
+        return [
+          <GridActionsCellItem
+            icon={<DeleteIcon />}
+            label="Delete"
+            onClick={handleDeleteClick(id)}
+            color="inherit"
+          />,
+        ];
+      },
     }
   ];
   
@@ -106,11 +173,23 @@ const Contacts = () => {
         <DataGrid
           rows={clients}
           columns={columns}
+          processRowUpdate={processRowUpdate}
+          onProcessRowUpdateError={handleProcessRowUpdateError}
           slots={{
             Toolbar: GridToolbar,
           }}
           disableColumnFilter={false} 
         />
+        {!!snackbar && (
+          <Snackbar 
+            open 
+            anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+            onClose={handleCloseSnackbar}
+            autoHideDuration={6000}
+          >
+            <Alert {...snackbar} onClose={handleCloseSnackbar} />
+          </Snackbar>
+        )}
       </Box>
     </Box>
   );

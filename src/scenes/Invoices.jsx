@@ -3,12 +3,30 @@ import { useNavigate } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../api/firebase";
 import { Box } from "@mui/material";
-import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import { DataGrid, GridActionsCellItem, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../theme";
 import Header from "../components/Header";
 import { useTheme } from "@mui/material";
 import API from "../api/API";
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
+import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 
+const usePersistInvoice = () => {
+  return React.useCallback(
+    (invoice) => 
+    new Promise((resolve, reject) => {
+      API.updateInvoice(invoice.id, invoice)
+        .then((data) => {
+          resolve(data.invoice);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    }),
+    []
+  );
+};
 
 const Invoices = () => {
   const navigate = useNavigate();
@@ -20,8 +38,11 @@ const Invoices = () => {
     });
   }, [navigate]);
 
+  const mutateRow = usePersistInvoice();
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [snackbar, setSnackbar] = useState(null);
+  const handleCloseSnackbar = () => setSnackbar(null);
   const [invoices, setInvoices] = useState([]);
   useEffect(() => {
     API.getAllInvoices()
@@ -32,6 +53,35 @@ const Invoices = () => {
         console.log(err);
       });
   }, []);
+
+  const processRowUpdate = React.useCallback(
+    async (newRow) => {
+      const response = await mutateRow(newRow);
+      setSnackbar({ children: 'Invoice Updated Successfully', severity: 'success'})
+      return response;
+    },
+    [mutateRow],
+  );
+
+  const handleProcessRowUpdateError = React.useCallback((error) => {
+    setSnackbar({ children: error.message, severity: 'error'});
+  }, []);
+
+  const handleDeleteClick = (id) => () => {
+    console.log("deleting id: " + id);
+    API.deleteInvoice(id)
+      .then((data) => {
+        console.log("Data returned after delete");
+        console.log(data);
+        setSnackbar({ children: 'Invoice Deleted Successfully', severity: 'success'})
+        setInvoices(invoices.filter((row) => row.id !== id));
+      })
+      .catch((err) => {
+        console.log(err);
+        setSnackbar({ children: err.message, severity: 'error'})
+      });
+    
+  };
 
   const columns = [
     { 
@@ -79,7 +129,24 @@ const Invoices = () => {
       headerName: "Status",
       flex: 0.2,
       editable: true
-    } 
+    },
+    {
+      field: 'actions',
+      type: 'actions',
+      headerName: 'Actions',
+      width: 100,
+      cellClassName: 'actions',
+      getActions: ({ id }) => {
+        return [
+          <GridActionsCellItem
+            icon={<DeleteIcon />}
+            label="Delete"
+            onClick={handleDeleteClick(id)}
+            color="inherit"
+          />,
+        ];
+      },
+    }
   ];
   
 
@@ -124,11 +191,23 @@ const Invoices = () => {
         <DataGrid
           rows={invoices}
           columns={columns}
+          processRowUpdate={processRowUpdate}
+          onProcessRowUpdateError={handleProcessRowUpdateError}
           slots={{
             Toolbar: GridToolbar,
           }}
           disableColumnFilter={false} 
         />
+        {!!snackbar && (
+          <Snackbar 
+            open 
+            anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+            onClose={handleCloseSnackbar}
+            autoHideDuration={6000}
+          >
+            <Alert {...snackbar} onClose={handleCloseSnackbar} />
+          </Snackbar>
+        )}
       </Box>
     </Box>
   );

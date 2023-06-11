@@ -54,7 +54,7 @@ const API = {
             method: "DELETE",
         }).then(res => {
             if (res.ok) {
-                return res.json();
+                return res.json({message: "success"});
             } else {
                 throw new Error("failed to delete invoice");
             }
@@ -113,7 +113,7 @@ const API = {
             method: "DELETE",
         }).then(res => {
             if (res.ok) {
-                return res.json();
+                return res.json({message: "success"});
             } else {
                 throw new Error("failed to delete client");
             }
