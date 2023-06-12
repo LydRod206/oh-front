@@ -8,10 +8,12 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import listPlugin from "@fullcalendar/list";
-import {Box,List,ListItem,ListItemText,Typography,useTheme,} from "@mui/material";
+import {Dialog,Box,Button,TextField,List,ListItem,ListItemText,Typography,useTheme,MenuItem, DialogTitle, DialogContent, Switch, FormControlLabel} from "@mui/material";
 import Header from "../components/Header";
 import { tokens } from "../theme";
 import API from "../api/API";
+import { Formik } from "formik";
+import * as yup from "yup";
 
 const Calendar = () => {
   const navigate = useNavigate();
@@ -26,42 +28,58 @@ const Calendar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [currentEvents, setCurrentEvents] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [clients, setClients] = useState([]);
+  const [formValues, setFormValues] = useState({
+    title: "",
+    client_id: "",
+    start: "",
+    end: "",
+    allDay: false,
+  });
+
+  const checkoutSchema = yup.object().shape({
+    title: yup.string().required("Required"),
+    client_id: yup.string().required("Required"),
+    start: yup.date().required("Required"),
+    end: yup.date().required("Required"),
+    allDay: yup.boolean().required("Required"),
+  });
 
   const handleDateClick = (selected) => {
-    const title = prompt("Please enter a new title for your event");
-    const client_id = prompt("Please enter a client ID for your event");
-
-    if (!title) {
-      return;
-    }
-    if (!client_id) {
-      return;
-    }
-
-    API.createJob({
-      title,
+    setFormValues({
+      title: "",
+      client_id: "",
       start: selected.startStr,
       end: selected.endStr,
       allDay: selected.allDay,
-      client_id: client_id,
-    })
-    .then((data) => {
-      setCurrentEvents([
-        ...currentEvents,
-        {
-          id: data.job.id,
-          title: data.job.title,
-          start: data.job.start,
-          end: data.job.end,
-          allDay: data.job.allDay,
-          client_id: data.job.client_id,
-        },
-      ]);
-    })
-    .catch((err) => {
-      console.log(err);
     });
+    console.log(formValues);
+    setOpen(true);
   };
+
+  const handleSubmit = (values) => {
+    API.createJob(values)
+      .then((data) => {
+        setCurrentEvents([
+          ...currentEvents,
+          {
+            id: data.job.id,
+            title: data.job.title,
+            start: data.job.start,
+            end: data.job.end,
+            allDay: data.job.allDay,
+            client_id: data.job.client_id,
+          },
+        ]);
+        setOpen(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const handleClose = () => setOpen(false);
 
   const handleEventClick = (selected) => {
     if (
@@ -97,22 +115,24 @@ const Calendar = () => {
             allDay: job.allDay,
             client_id: job.client_id,
           }))
-        )
-
+        );
       })
       .catch((err) => {
         console.log(err);
       });
+    API.getAllClients()
+      .then((data) => {
+        setClients(data.clients);
+      }
+    );
   }, []);
 
   return (
-    <Box m="20px">
-       {/* HEADER */}
-       <Box display="flex" justifyContent="space-between" alignItems="center">
+    <div>
+      <Box display="flex" justifyContent="space-between" alignItems="center">
         <Header title="DASHBOARD" subtitle="Welcome to your dashboard" />
       </Box>  
      
-
       <Box display="flex" justifyContent="space-between">
         {/* CALENDAR SIDEBAR */}
         <Box
@@ -177,7 +197,106 @@ const Calendar = () => {
           />
         </Box>
       </Box>
-    </Box>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        >
+          <DialogTitle>Add New Job</DialogTitle>
+          <DialogContent>
+            <Formik 
+              onSubmit={handleSubmit}
+              initialValues={formValues}
+              validationSchema={checkoutSchema}
+            >
+            {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => (
+              <form onSubmit={handleSubmit}>
+                <Box mt="20px">
+                  <TextField
+                    fullWidth
+                    variant="filled"
+                    type="text"
+                    label="title"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    value={values.title}
+                    name="title"
+                    error={!!touched.title && !!errors.title}
+                    helperText={touched.title && errors.title}
+                    sx={{ gridColumn: "span 2" }}
+                  />
+                </Box>
+                <Box mt="20px">
+                  <TextField
+                    name="client_id"
+                    select
+                    label="Client"
+                    defaultValue=""
+                    value={values.client_id}
+                    helperText="Please select a client"
+                    onChange={handleChange}
+                  >
+                    {clients.map((option) => (
+                      <MenuItem key={option.id} value={option.id}>
+                        {option.name}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                </Box>
+                <Box mt="20px">
+                  <TextField
+                    fullWidth
+                    variant="filled"
+                    type="text"
+                    label="start"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    value={values.start}
+                    name="start"
+                    error={!!touched.start && !!errors.start}
+                    helperText={touched.start && errors.start}
+                    sx={{ gridColumn: "span 2" }}
+                  />
+                </Box>
+                <Box mt="20px">
+                  <TextField
+                    fullWidth
+                    variant="filled"
+                    type="text"
+                    label="end"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    value={values.end}
+                    name="end"
+                    error={!!touched.end && !!errors.end}
+                    helperText={touched.end && errors.end}
+                    sx={{ gridColumn: "span 2" }}
+                  />
+                </Box>
+                <Box mt="20px">
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        checked={values.allDay}
+                        onChange={handleChange}
+                        name="allDay"
+                        color="primary"
+                      />
+                    }
+                    label="All Day"
+                  />
+
+                </Box>
+                <Box display="flex" justifyContent="end" mt="20px">
+                  <Button type="submit" color="secondary" variant="contained">
+                    Create New Job
+                  </Button>
+                </Box>
+              </form>
+            )}
+          </Formik>
+          </DialogContent>
+      </Dialog>
+    </div>
   );
 };
 
