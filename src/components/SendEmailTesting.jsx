@@ -20,7 +20,6 @@ export default function SendEmailTesting() {
                 recipient_email: recipient_email,
                 subject: subject,
                 message: message,
-                //need all other info here. Maybe no alert and it's just the box that changes color
             })
             .then((res) => {
                 console.log(res)
@@ -34,6 +33,7 @@ export default function SendEmailTesting() {
     }
 
     return (
+    <div style={{ marginTop: '70px', marginLeft: '150px' }}>
         <Form onSubmit={(event) => {
             console.log(event.target)
             event.preventDefault()
@@ -70,6 +70,7 @@ export default function SendEmailTesting() {
                 Send
             </Button>
         </Form>
+    </div>
         );
 };
 
