@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../api/firebase";
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, TextField, MenuItem } from "@mui/material";
 import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -18,6 +18,19 @@ const InvoiceForm = () => {
       }
     });
   }, [navigate]);
+
+  const [jobs, setJobs] = useState([]);
+
+  useEffect(() => {
+    API.getAllJobs()
+      .then((data) => {
+        setJobs(data.jobs);
+      })
+      .catch((err) => {
+        console.log(err);
+      }
+    );
+  }, []);
 
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
@@ -58,18 +71,20 @@ const InvoiceForm = () => {
               }}
             >
               <TextField
-                fullWidth
-                variant="filled"
-                type="number"
-                label="Job ID"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.job_id}
                 name="job_id"
-                error={!!touched.job_id && !!errors.job_id}
-                helperText={touched.job_id && errors.job_id}
-                sx={{ gridColumn: "span 2" }}
-              />
+                select
+                label="Job"
+                defaultValue=""
+                value={values.job_id}
+                helperText="Please select a job"
+                onChange={handleChange}
+              >
+                {jobs.map((option) => (
+                  <MenuItem key={option.id} value={option.id}>
+                    {option.title}
+                  </MenuItem>
+                ))}
+              </TextField>
               <TextField
                 fullWidth
                 variant="filled"
