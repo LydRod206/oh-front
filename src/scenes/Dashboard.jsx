@@ -98,7 +98,7 @@ const Calendar = () => {
             client_id: job.client_id,
           }))
         )
-        console.log(currentEvents);
+
       })
       .catch((err) => {
         console.log(err);
