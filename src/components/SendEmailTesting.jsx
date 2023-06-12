@@ -3,6 +3,7 @@ import axios from "axios";
 
 import { Form, Button } from 'react-bootstrap';
 
+
 export default function SendEmailTesting() {
     const [recipient_email, setEmail] = useState("");
     const [subject, setSubject] = useState("");
@@ -19,11 +20,10 @@ export default function SendEmailTesting() {
                 recipient_email: recipient_email,
                 subject: subject,
                 message: message,
-                //need all other info here. Maybe no alert and it's just the box that changes color
             })
             .then((res) => {
                 console.log(res)
-                alert("Sent PERFECTLY!")
+                alert("Email Sent!")
             
             }) 
             .catch((err) => alert(err));
@@ -33,42 +33,36 @@ export default function SendEmailTesting() {
     }
 
     return (
+    <div style={{ marginTop: '70px', marginLeft: '150px' }}>
         <Form onSubmit={(event) => {
             console.log(event.target)
             event.preventDefault()
             sendMail()
         } }>
             <Form.Group controlId="formBasicEmail">
-            <Form.Label>I send emails!</Form.Label>
+            <Form.Label>Wow! I send emails!</Form.Label><br></br>
             <Form.Control 
                 type="email" 
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="enter email then run file to test!" />
-            <Form.Text className="text-muted">
-                All info except Notes will appear on the invoice.
-            </Form.Text>
+                placeholder="Enter email" />
             </Form.Group>
     
             <Form.Group controlId="formBasicSubject">
-            <Form.Label>Client Name</Form.Label>
+            {/* <Form.Label>Subject of Email</Form.Label><br></br> */}
             <Form.Control 
                 type="text" 
                 onChange={(e) => setSubject(e.target.value)}
-                placeholder="Enter client's first and last name" />
+                placeholder="Enter subject" />
             </Form.Group>
 
             <Form.Group controlId="formBasicMessage">
-            <Form.Label>Cost</Form.Label>
+            {/* <Form.Label>Type Message</Form.Label> */}
             <Form.Control 
                 type="text" 
                 onChange={(e) => setMessages(e.target.value)}
-                placeholder="Cost of service" />
+                placeholder="Enter message" />
             </Form.Group>
     
-            {/* <Form.Group controlId="formBasicCheckbox">
-            <Form.Check type="checkbox" label="Check me out" />
-            </Form.Group>
-     */}
             <Button 
                 // onClick={() => sendMail()} 
                 variant="primary" type="submit"
@@ -76,6 +70,7 @@ export default function SendEmailTesting() {
                 Send
             </Button>
         </Form>
+    </div>
         );
 };
 

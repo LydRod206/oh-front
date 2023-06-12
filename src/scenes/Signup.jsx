@@ -25,25 +25,32 @@ const Signup = () => {
     }
 
     return (
-        <main>
-            <section>
-                <div>
-                    <div>
-                        <h1>Only Hands</h1>
+        <main style={{ display: 'flex', justifyContent: 'center', height: '100vh' }}>
+        <section>
+            <div style={{ textAlign: 'center' }}>
+            {/* <p>Only Hands</p> */}
+            <img
+                alt="logo"
+                width="350px"
+                height="350px"
+                src={'../../assets/logo-wht-bg.png'}
+                // src={`../../assets/logo-wht-bg.png`}
+                style={{ cursor: 'pointer', borderRadius: '50%' }}
+            /><br></br><br></br><br></br>
                         <form>
                             <div>
-                                <label htmlFor="email">Email</label>
-                                <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} required placeholder="Email Address" />
+                                <label htmlFor="email">Email</label><br></br>
+                                <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} required placeholder="Enter Email" />
                             </div>
 
                             <div>
-                                <label htmlFor="password">Password</label>
-                                <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} required placeholder="Password" />
+                                <label htmlFor="password">Password</label><br></br>
+                                <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} required placeholder="Enter Password" />
                             </div>
 
                             <div>
-                                <label htmlFor="displayName">Name</label>
-                                <input type="text" id="displayName" value={displayName} onChange={(e) => setDisplayName(e.target.value)} required placeholder="Name" />
+                                <label htmlFor="displayName">Name</label><br></br>
+                                <input type="text" id="displayName" value={displayName} onChange={(e) => setDisplayName(e.target.value)} required placeholder="What's your name?" />
                             </div>
 
                             <button type="submit" onClick={onSubmit}>Sign Up</button>
@@ -56,7 +63,6 @@ const Signup = () => {
                             </NavLink>
                         </p>
                     </div>
-                </div>
             </section>
         </main>
     )
