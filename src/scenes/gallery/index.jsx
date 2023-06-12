@@ -1,11 +1,22 @@
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../api/firebase";
 import './gallery.css';
-import { useState } from "react";
 import axios from "axios";
-import React from "react";
 
 
 
 function App() { 
+  const navigate = useNavigate();
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        navigate("/login");
+      }
+    });
+  }, [navigate]);
+
   const [images, SetImages] = useState([]);
   const [imageToRemove, setImageToRemove] = useState(null);
 
