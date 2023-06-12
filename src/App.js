@@ -12,7 +12,6 @@ import ClientForm from "./scenes/ClientForm";
 import Invoices from "./scenes/Invoices";
 import InvoiceForm from "./scenes/InvoiceForm";
 import EmailTesting from "./components/SendEmailTesting"; // Added import
-import Gallery from "./scenes/gallery";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 import "./index.css";
@@ -46,7 +45,6 @@ function App() {
               <Route path="/invoices" element={<Invoices />} />
               <Route path="/invoiceform" element={<InvoiceForm />} />
               <Route path="/emailtesting" element={<EmailTesting />} />
-              <Route path="/gallery" element={<Gallery />} />
               <Route path="/signup" element={<Signup/>}/>
               <Route path="/login" element={<Login/>}/>
             </Routes>
