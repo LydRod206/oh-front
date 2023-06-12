@@ -172,16 +172,9 @@ const Sidebar = () => {
             >
               Upload
             </Typography>
-            <Item
-              title="Files 'n Photos"
-              to="/gallery"
-              icon={<CollectionsIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
             
             <Item
-              title="Email Testing"
+              title="Send Email"
               to="/emailtesting"
               // icon={<PetsIcon />}
               selected={selected}
