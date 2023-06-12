@@ -9,8 +9,9 @@ import { tokens } from "../../theme";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
-import CollectionsIcon from '@mui/icons-material/Collections';
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
+import MailOutlineIcon from '@mui/icons-material/MailOutline';
+import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -153,7 +154,7 @@ const Sidebar = () => {
             <Item
               title="Invoices"
               to="/invoices"
-              icon={<ContactsOutlinedIcon />}
+              icon={<MonetizationOnIcon />}
               selected={selected}
               setSelected={setSelected}
             />
@@ -170,13 +171,13 @@ const Sidebar = () => {
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
             >
-              Upload
+              Communication
             </Typography>
             
             <Item
               title="Send Email"
               to="/emailtesting"
-              // icon={<PetsIcon />}
+              icon={<MailOutlineIcon />}
               selected={selected}
               setSelected={setSelected}
             />
