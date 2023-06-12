@@ -26,7 +26,6 @@ const Calendar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [currentEvents, setCurrentEvents] = useState([]);
-  //const [jobs, setJobs] = useState([]);
 
   const handleDateClick = (selected) => {
     const title = prompt("Please enter a new title for your event");
@@ -38,6 +37,7 @@ const Calendar = () => {
     if (!client_id) {
       return;
     }
+
     API.createJob({
       title,
       start: selected.startStr,
@@ -96,7 +96,9 @@ const Calendar = () => {
             end: job.end,
             allDay: job.allDay,
             client_id: job.client_id,
-          })))
+          }))
+        )
+        console.log(currentEvents);
       })
       .catch((err) => {
         console.log(err);
@@ -171,6 +173,7 @@ const Calendar = () => {
             dayMaxEvents={true}
             select={handleDateClick}
             eventClick={handleEventClick}
+            
           />
         </Box>
       </Box>

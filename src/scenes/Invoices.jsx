@@ -90,8 +90,8 @@ const Invoices = () => {
       // flex: 0.5 
     },
     {
-      field: "client_id",
-      headerName: "Client ID",
+      field: "job_id",
+      headerName: "Job ID",
       flex: 0.3,
     },
     {

@@ -61,13 +61,13 @@ const InvoiceForm = () => {
                 fullWidth
                 variant="filled"
                 type="number"
-                label="Client ID"
+                label="Job ID"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.client_id}
-                name="client_id"
-                error={!!touched.client_id && !!errors.client_id}
-                helperText={touched.client_id && errors.client_id}
+                value={values.job_id}
+                name="job_id"
+                error={!!touched.job_id && !!errors.job_id}
+                helperText={touched.job_id && errors.job_id}
                 sx={{ gridColumn: "span 2" }}
               />
               <TextField
@@ -175,7 +175,7 @@ const InvoiceForm = () => {
 };
 
 const checkoutSchema = yup.object().shape({
-  client_id: yup.number().required("required"),
+  job_id: yup.number().required("required"),
   services: yup.string().required("required"),
   date: yup.string().required("required"),
   work_description: yup.string().required("required"),
@@ -185,7 +185,7 @@ const checkoutSchema = yup.object().shape({
   status: yup.string().required("required"),
 });
 const initialValues = {
-  client_id: "",
+  job_id: "",
   services: "",
   date: "",
   work_description: "",
