@@ -92,6 +92,11 @@ Contributions are welcome! If you find any issues or want to add new features, f
 
 This project is licensed under the [MIT License](LICENSE).
 
+## Depoloyed at:
+
+
+https://only-hands.netlify.app/
+
 
 
 ![Screenshot 2023-06-09 at 12 23 06 PM](https://github.com/stasiaDiamond/oh-front/assets/119384486/0bc6d230-cd52-47fd-bf24-27a59b581af5)
